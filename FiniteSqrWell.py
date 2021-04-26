@@ -42,46 +42,22 @@ def antisymmetric(x):
     else:
         return np.sqrt((z_0/x)**2-1) + np.cos(x)/np.sin(x)
 
-x = np.linspace(0,10,1000)
-y = np.tan(x)
-plt.ylim(0,8)
-y2 = np.sqrt((z_0/x)**2-1)
-plt.plot(x,y)
-plt.plot(x,y2)
-plt.savefig("symmetric.pdf")
+x = np.linspace(0,15,1000)
 
-
-plt.clf()
-
-y3 = np.cos(x)/np.sin(x)
-
-plt.plot(x, y2)
-plt.plot(x, y3)
-plt.savefig("anti.pdf")
-
-y4 = np.sqrt((z_0/x)**2-1) - np.tan(x)
-y5 = np.sqrt((z_0/x)**2-1) - (np.cos(x)/np.sin(x))
-
-plt.clf()
-x1 = np.linspace(-8,8,1000)
-plt.ylim(-8,8)
-plt.plot(x1, y4)
-
-
-pairs = find_pairs(symmetric, 0.1, 0, 10)
-print(pairs)
+pairs = find_pairs(symmetric, 0.1, 0, 15)
+#print(pairs)
 zeros = bisection(symmetric, pairs, 1E-10, 1000)
-print(zeros)
+#print(zeros)
 
 Energies = []
 for z in zeros:
     Energies.append(hbar**2/(2*m*c**2)*z**2 - V_0)
 print(Energies)
 
-pairs = find_pairs(antisymmetric, 0.1, 0, 10)
-print(pairs)
+pairs = find_pairs(antisymmetric, 0.1, 0, 15)
+#print(pairs)
 zeros = bisection(antisymmetric, pairs, 1E-10, 1000)
-print(zeros)
+#print(zeros)
 for z in zeros:
     Energies.append(hbar**2/(2*m*c**2)*z**2 - V_0)
 print(Energies)
@@ -89,4 +65,14 @@ print(Energies)
 def Infinite(n):
     return n**2*np.pi**2*hbar**2/(8*m*c**2) - V_0
 
-print("infinite", Infinite(1), Infinite(2), Infinite(3), Infinite(4), Infinite(5))
+print("infinite", Infinite(1), Infinite(2), Infinite(3), Infinite(4), Infinite(5), Infinite(6), Infinite(7))
+
+x = np.linspace(-15,15,5)
+plt.plot(x, Energies)
+plt.plot(x, (Infinite(1), Infinite(2), Infinite(3), Infinite(4), Infinite(5)))
+plt.plot(x, x)
+plt.ylim(-.0000000000000083, -.0000000000000076)
+plt.savefig("infiniteandfinite.pdf")
+
+#search bt 0 and z0 after changing V0!!
+#change graph limits
